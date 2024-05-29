@@ -1,0 +1,216 @@
+################# Start of all the settings
+
+# KEY DEFINITIONS USED IN I3 CONFIG
+# $mod = Set below
+# Mod4 = Super key
+# Mod1 = ALT key
+# Control = CTRL key
+# Shift = SHIFT key
+# Escape = ESCAPE key
+# Return = ENTER or RETURN key
+# KP_Enter = Keypad Enter
+# Pause = PAUSE key
+# Print = PRINT key
+# Tab = TAB key
+# semicolon = ; key
+
+################# Define the $mod variable/key
+
+# Key to rule them all : Super(Windows) or Alt key - see definition above
+# set Super key
+# set $mod Mod4
+
+# set Alt key
+set $mod Mod1
+
+################# Define the movements keys - variables
+
+# This is setup for qwerty
+# set $right to m if using azerty keyboard
+set $up k
+set $down j 
+set $left h 
+set $right l
+
+################# reload changed configuration     
+
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+Delete restart
+# reload the configuration file
+bindsym $mod+Shift+r reload
+
+################# Stopping an application          
+
+# kill focused window
+bindsym $mod+Shift+q kill
+bindsym $mod+q kill
+
+################# choose the font                  
+
+# Font for window titles. Will also be used by the bar unless a different font
+# is used in the bar {} block below.
+# choose your font
+# font pango:Noto Mono Regular 13
+# font pango:SauceCodePro Nerd Font Regular 13
+font pango:JetBrainsMonoNL Nerd Font Regular 13
+
+################# Setup up monitors and include it
+
+#exec_always --no-startup-id $HOME/.bin/set_monitors &
+include $HOME/.config/i3/monitors.i3
+
+################# Layout and moving around
+include $HOME/.config/i3/layout_and_moving_around.i3
+
+################# Workspaces
+include $HOME/.config/i3/workspaces.i3
+
+################# Menus, Applications, System controls
+include $HOME/.config/i3/menus.i3
+include $HOME/.config/i3/audio_backlight_etc.i3
+
+include $HOME/.config/i3/autostart.i3
+
+include $HOME/.config/i3/applications_tiling.i3
+include $HOME/.config/i3/applications_keybindings.i3
+
+################# MAIN BAR
+exec_always --no-startup-id ~/.config/polybar/launch.sh &
+
+
+################# bar toggle                       
+
+# bar toggle, hide or show
+bindsym $mod+b bar mode toggle
+
+################# border control                   
+
+# Border control
+hide_edge_borders both
+bindsym $mod+shift+b exec --no-startup-id i3-msg border toggle
+
+# changing border style
+# super+t in arcolinux is starting terminal
+bindsym $mod+t border normal
+bindsym $mod+y border pixel 1
+bindsym $mod+u border none
+
+# new_window pixel 1
+new_window normal
+# new_window none
+
+# new_float pixel 1
+new_float normal
+# new_float none
+
+################# i3 gaps next                     
+
+# Settings for I3 next gap git
+# https://github.com/Airblader/i3/tree/gaps-next
+# delete or uncomment the following lines if you do not have it or do not
+# want it
+
+for_window [class="^.*"] border pixel 2
+gaps inner 5
+gaps outer 5
+# smart_gaps on
+# smart_borders on
+
+################# i3 gaps change                   
+
+set $mode_gaps Gaps: (o) outer, (i) inner
+set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
+set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
+bindsym $mod+Shift+g mode "$mode_gaps"
+
+mode "$mode_gaps" {
+        bindsym o      mode "$mode_gaps_outer"
+        bindsym i      mode "$mode_gaps_inner"
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+mode "$mode_gaps_inner" {
+        bindsym plus  gaps inner current plus 5
+        bindsym minus gaps inner current minus 5
+        bindsym 0     gaps inner current set 0
+
+        bindsym Shift+plus  gaps inner all plus 5
+        bindsym Shift+minus gaps inner all minus 5
+        bindsym Shift+0     gaps inner all set 0
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+mode "$mode_gaps_outer" {
+        bindsym plus  gaps outer current plus 5
+        bindsym minus gaps outer current minus 5
+        bindsym 0     gaps outer current set 0
+
+        bindsym Shift+plus  gaps outer all plus 5
+        bindsym Shift+minus gaps outer all minus 5
+        bindsym Shift+0     gaps outer all set 0
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+ ##START THEMING WM
+    # Theme name : Korba Nord Theme
+
+    # Window color settings
+    # class                 border  backgr. text    indicator
+    client.focused          #81a1c1 #81a1c1 #e5e9f0 #81a1c1
+    client.unfocused        #373e4d #373e4d #a5abb6 #373e4d
+    client.focused_inactive #373e4d #373e4d #a5abb6 #373e4d
+    client.placeholder      #373e4d #373e4d #a5abb6 #373e4d
+    client.urgent           #bf616a #bf616a #eceff4 #bf616a
+
+    client.background       #3b4252
+
+    ##STOP THEMING WM
+
+################# Scratchpad
+
+# NOT USED
+
+# move the currently focused window to the scratchpad
+# bindsym Mod1+Shift+minus move scratchpad
+
+# Show the next scratchpad window or hide the focused scratchpad window.
+# If there are multiple scratchpad windows, this command cycles through them.
+# bindsym Mod1+minus scratchpad show
+
+################# mouse settings in i3             
+
+# NOT USED
+
+# mouse settings
+# The middle button over a titlebar kills the window
+# bindsym --release button2 kill
+
+# The middle button and a modifer over any part of the window kills the window
+# bindsym --whole-window $mod+button2 kill
+
+# The right button toggles floating
+# bindsym button3 floating toggle
+# bindsym $mod+button3 floating toggle
+
+# The side buttons move the window around
+# bindsym button9 move left
+# bindsym button8 move right
+
+################# keyboard control                 
+
+# NOT USED
+
+# Settings of arcolinux will be applied
+# exec --no-startup-id setxkbmap be
+# exec --no-startup-id setxkbmap us
+
+################# unclutter                        
+
+# NOT USED
+
+# get the mouse out of the way with unclutter
+# exec --no-startup-id unclutter

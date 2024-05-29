@@ -1,0 +1,6 @@
+# Set the theme to "TwoDark"
+--theme="Nord"
+
+# Show line numbers, Git modifications and file header (but no grid)
+# --style="numbers,changes,header,grid"
+--style="full"

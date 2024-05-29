@@ -1,0 +1,11 @@
+#!/bin/env bash
+
+function main {
+	battery=$1
+	upower -i /org/freedesktop/UPower/devices/battery_${battery}
+}
+
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+	main "$@"
+fi
+
