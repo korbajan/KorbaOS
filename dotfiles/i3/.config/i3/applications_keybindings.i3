@@ -56,7 +56,7 @@ bindsym --release $mod+Escape exec xkill
 bindsym $mod+F1 exec --no-startup-id exo-open --launch webbrowser;focus
 # qwerty/azerty conflict with w
 #bindsym $mod+w exec --no-startup-id exo-open --launch webbrowser;focus
-bindsym $mod+w exec --no-startup-id firefox;focus
+bindsym $mod+w exec --no-startup-id zen-browser;focus
 bindsym control+mod1+f exec --no-startup-id firefox;focus
 bindsym control+mod1+g exec --no-startup-id chromium;focus
 

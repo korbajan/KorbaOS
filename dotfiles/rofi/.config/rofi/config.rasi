@@ -151,5 +151,4 @@ modi: "window,drun,ssh,run";
 }
 //@theme "nord"
 /*  window { fullscreen: true; } */
-//@theme "/home/jakub/.config/rofi/themes/nordic.rasi"
-@theme "/home/jakub/.config/rofi/themes/nordic.rasi"
+@theme "./themes/nordic.rasi"

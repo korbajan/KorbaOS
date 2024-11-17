@@ -1,0 +1,1 @@
+paru -S pyenv-virtualenv

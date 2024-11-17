@@ -3,6 +3,7 @@
 
 ## Web browser: $ws1
 assign [class="firefox"] 1
+assign [class="zen-alpha"] 1
 assign [class="Chromium"] 1
 assign [class="Vivaldi-stable"] 1
 assign [class="Opera"] 1

@@ -144,6 +144,10 @@ if [ -d "${HOME}/.krew/bin" ] ;
   then PATH="${PATH}:${HOME}/.krew/bin"
 fi
 
+if [ -d "${HOME}/.nix-profile/bin" ] ;
+  then PATH="${PATH}:${HOME}/.nix-profile/bin"
+fi
+
 ### ALIASES ###
 
 #list
@@ -466,13 +470,10 @@ alias personal='cp -Rf /personal/* ~'
 [ -f /usr/share/fzf/key-bindings.zsh ] && source /usr/share/fzf/key-bindings.zsh
 [ -f /usr/share/fzf/completion.zsh ] && source /usr/share/fzf/completion.zsh
 
-
-source ~/.chatgpt/token
-source $HOME/SystemSetup/CodiLime/cloudgate_api_vars.source
-
 # korba aliases
 #alias gogobig="cd $HOME/Projects/CodiLime/gobig_worktree"
-alias e="nvim"
+# alias e="nvim"
+alias e='NVIM_APPNAME="nvim-korba" nvim'
 alias dusort="du -d 1 -h | sort -h --reverse"
 alias dmenu="dmenu -h 30 -nb '#3b4252' -sb '#88c0d0' -nf '#b48ead' -sf '#3b4252' -fn 'SauceCodeProNerdFont:regular:pixelsize=14'"
 alias fcd='cd $(ls -d */ | fzf)'
@@ -481,7 +482,6 @@ alias show='exa --long --all --group-directories-first --across --extended --git
 alias start_docker="sudo systemctl start docker"
 alias start_libvirt="sudo systemctl start libvirtd"
 alias downloadtest="speedtest --simple --no-upload --single --bytes"
-[ -f /home/jakub/Projects/CodiLime/gobig_codi/gobig-toolkit/repo/vpn.sh ] && source /home/jakub/Projects/CodiLime/gobig_codi/gobig-toolkit/repo/vpn.sh
 alias TODO="nvim $HOME/Projects/TODO.txt"
 #alias start-windows="vboxmanage startvm vmware_win11"
 # alias save-windows="vboxmanage controlvm vmware_win11 savestate"
@@ -504,11 +504,7 @@ alias kcontext="kubectl config get-contexts | awk '{print \$1}' | fzf"
 # export PIP_INDEX_URL=http://localhost:8222
  
 #eval "$(ssh-agent -s)"
-#eval "$(ssh-agent -s)"
-#eval "$(ssh-agent -s)"
 # eval "$(ssh-agent -s)" > /dev/null
-# ssh-add ~/.ssh/sjakub_id_ed25519
-# ssh-add ~/.ssh/jakub_codi_id_ed25519
 # ssh-add ~/.ssh/korba_id_ed25519 > /dev/null
 
 function pyenv_venv_rebuild() {
@@ -533,3 +529,5 @@ eval "$(zoxide init --cmd j zsh)"
 eval $(thefuck --alias wtf)
 eval "$(starship init zsh)"
 # sprawdz_sandaly
+
+if [ -e ${HOME}/.nix-profile/etc/profile.d/nix.sh ]; then . ${HOME}/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer

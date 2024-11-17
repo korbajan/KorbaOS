@@ -8,7 +8,7 @@ killall -q polybar
 # Wait until the processes have been shut down
 while pgrep -u $UID -x polybar > /dev/null; do sleep 1; done
 
-desktop=$($HOME/.bin/get_current_desktop)
+desktop=$($HOME/.bin/get_current_desktop.sh)
 # why $HOME/.bin is added to PATH by bashrc so it scripts from that location are not visible when i3 started
 # if [[ -n ${XDG_CURRENT_DESKTOP} ]]; then 
 #   desktop=$(echo $XDG_CURRENT_DESKTOP)  

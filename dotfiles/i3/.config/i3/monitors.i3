@@ -1,5 +1,5 @@
-
-exec --no-startup-id xrandr --output DP-2-3 --primary --auto --right-of eDP-1
+# exec --no-startup-id xrandr --output DP-2-3 --primary --auto --right-of eDP-1
+exec --no-startup-id xrandr --output eDP --primary
 workspace 1 output DP-2-3
 workspace 2 output DP-2-3
 workspace 3 output DP-2-3

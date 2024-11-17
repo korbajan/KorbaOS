@@ -600,8 +600,8 @@ bar-empty = ─
 [module/battery]
 ;https://github.com/jaagr/polybar/wiki/Module:-battery
 type = internal/battery
-battery = BAT0
-adapter = AC0
+battery = BAT1
+adapter = ACAD
 full-at = 100
 
 format-charging = " <animation-charging>  BAT <label-charging>"

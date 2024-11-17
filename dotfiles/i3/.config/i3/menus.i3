@@ -58,7 +58,8 @@ mode "$mode_system" {
 
 # ArcoLinux Logout
 bindsym $mod+Shift+e exec --no-startup-id python3 $HOME/SystemSetup/arcolinux-logout/usr/share/arcologout/arcologout.py
-bindsym $mod+Delete exec --no-startup-id python3 $HOME/SystemSetup/arcolinux-logout/usr/share/arcologout/arcologout.py
+# bindsym $mod+Delete exec --no-startup-id python3 $HOME/SystemSetup/arcolinux-logout/usr/share/arcologout/arcologout.py
+bindsym $mod+Delete exec --no-startup-id python3 $HOME/SoftDev/arcolinux-logout/usr/share/archlinux-logout/archlinux-logout.py
 # arcolinux-logout
 # bindsym control+mod1+k exec --no-startup-id python3 $HOME/SystemSetup/arcolinux-logout/usr/share/arcologout/arcologout.py
 # bindsym control+mod1+l exec --no-startup-id python3 $HOME/SystemSetup/arcolinux-logout/usr/share/arcologout/arcologout.py
