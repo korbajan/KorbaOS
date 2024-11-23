@@ -4,14 +4,16 @@ return {
     -- change the command in the config to whatever the name of that colorscheme is.
     --
     -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
-    -- 'arcticicestudio/nord-vim',
-    'shaunsingh/nord.nvim',
+    'arcticicestudio/nord-vim',
+    -- 'shaunsingh/nord.nvim',
     priority = 1000, -- Make sure to load this before all the other start plugins.
     init = function()
+      vim.g.nord_italic_comments = 1
       vim.cmd.colorscheme 'nord'
-
       -- You can configure highlights by doing something like:
-      vim.cmd.hi 'Comment gui=none'
+      -- vim.cmd.hi 'Comment gui=none'
+      vim.cmd.hi 'FloatBorder guibg=#2E3440 guifg=#2E3440'
+      -- vim.cmd.hi 'FloatBorder guibg=Float'
     end,
   },
 }
