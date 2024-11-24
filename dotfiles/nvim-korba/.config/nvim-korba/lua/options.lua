@@ -33,6 +33,13 @@ vim.opt.undofile = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
+-- Indenting
+vim.opt.expandtab = true
+vim.opt.shiftwidth = 2
+vim.opt.smartindent = true
+vim.opt.tabstop = 2
+vim.opt.softtabstop = 2
+
 -- Keep signcolumn on by default
 vim.opt.signcolumn = 'yes'
 
@@ -61,5 +68,7 @@ vim.opt.cursorline = true
 
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
+
+vim.opt.laststatus = 0 -- Always display the status line
 
 -- vim: ts=2 sts=2 sw=2 et

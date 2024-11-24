@@ -50,20 +50,48 @@ require('lazy').setup({
   --  Uncomment any of the lines below to enable them (you will need to restart nvim).
   --
   require 'plugins/debug',
-  -- require 'kickstart.plugins.indent_line',
-  -- require 'kickstart.plugins.lint',
+  -- require 'plugins/indent_line',
+  -- require 'plugins/lint',
   require 'plugins/autopairs',
   require 'plugins/neo-tree',
+  require 'plugins/nvim-tree',
   require 'plugins/colorscheme',
   require 'plugins/mason',
 
-  require 'plugins/nvim-tree',
+  require 'plugins/lazygit',
+  require 'plugins/noice',
+  require 'plugins/dressing',
+  require 'plugins/bufdelete',
 
   -- For additional information with loading, sourcing and examples see `:help lazy.nvim-🔌-plugin-spec`
   -- Or use telescope!
   -- In normal mode type `<space>sh` then write `lazy.nvim-plugin`
   -- you can continue same window with `<space>sr` which resumes last telescope search
 }, {
+  install = {
+    missing = true,
+    colorscheme = { 'nord' },
+    -- colorscheme = { "nvchad" },
+  },
+  checker = {
+    enabled = true,
+    notify = false,
+  },
+  change_detection = {
+    enabled = true,
+    notify = false,
+  },
+  performance = {
+    rtp = {
+      disabled_plugins = {
+        'gzip',
+        'tarPlugin',
+        'tohtml',
+        'tutor',
+        'zipPlugin',
+      },
+    },
+  },
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the
     -- default lazy.nvim defined Nerd Font icons, otherwise define a unicode icons table

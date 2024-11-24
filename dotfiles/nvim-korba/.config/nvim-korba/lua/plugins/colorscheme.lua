@@ -8,13 +8,41 @@ return {
     -- 'shaunsingh/nord.nvim',
     priority = 1000, -- Make sure to load this before all the other start plugins.
     init = function()
+      -- vim.g.nord_contrast = true
+      -- vim.g.nord_borders = false
+      -- vim.g.nord_disable_background = false
+      vim.g.nord_italic = false
+      -- vim.g.nord_uniform_diff_background = true
+      vim.g.nord_bold = false
+
+      vim.g.nord_bold = 0
+      vim.g.nord_italic = 0
       vim.g.nord_italic_comments = 1
+
       vim.cmd.colorscheme 'nord'
       -- You can configure highlights by doing something like:
-      -- vim.cmd.hi 'Comment gui=none'
-      vim.cmd.hi 'FloatBorder guibg=#2E3440 guifg=#2E3440'
-      -- vim.cmd.hi 'FloatBorder guibg=Float'
+      vim.cmd.hi 'Comment gui=none'
+      -- vim.cmd.hi 'FloatBorder guibg=#2E3440 guifg=#2E3440'
+      -- vim.cmd.hi 'NormalFloat guibg=#2E3440'
+      vim.cmd.hi 'FloatBorder guibg=None guifg=None'
+      vim.cmd.hi 'NormalFloat guibg=None'
     end,
   },
+  -- {
+  --   'AlexvZyl/nordic.nvim',
+  --   lazy = false,
+  --   priority = 1000,
+  --   config = function()
+  --     require('nordic').setup {
+  --       on_palette = function(palette)
+  --         -- palette.black1 = palette.gray0
+  --         palette.black1 = '#242933'
+  --       end,
+  --     }
+  --   end,
+  --   init = function()
+  --     vim.cmd.colorscheme 'nordic'
+  --   end,
+  -- },
 }
 -- vim: ts=2 sts=2 sw=2 et

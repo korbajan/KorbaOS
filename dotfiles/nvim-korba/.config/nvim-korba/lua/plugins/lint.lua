@@ -1,3 +1,17 @@
+-- require('lint').linters.pylint.cmd = 'python'
+-- require('lint').linters.pylint.args = { '-m', 'pylint', '-f', 'json' }
+
+-- require('lint').linters.pylint.args = {
+--   '-m',
+--   'pylint',
+--   '-f',
+--   'json',
+--   '--from-stdin',
+--   function()
+--     return vim.api.nvim_buf_get_name(0)
+--   end,
+-- }
+
 return {
 
   { -- Linting
@@ -7,6 +21,8 @@ return {
       local lint = require 'lint'
       lint.linters_by_ft = {
         markdown = { 'markdownlint' },
+        python = { 'pylint' },
+        -- python = { 'flake8' },
       }
 
       -- To allow other plugins to add linters to require('lint').linters_by_ft,
