@@ -54,12 +54,12 @@ autocmd(
     pattern = { '*.txt', '*.md', '*.tex' },
     callback = function()
       vim.opt.spell = true
-      vim.opt.spelllang = 'en,pl'
+      vim.opt.spelllang = 'en'
     end,
   }
 )
 
-vim.api.nvim_create_autocmd('ColorScheme', {
+autocmd('ColorScheme', {
   callback = function()
     vim.api.nvim_set_hl(0, 'FloatBorder', { link = 'Normal' })
     vim.api.nvim_set_hl(0, 'LspInfoBorder', { link = 'Normal' })

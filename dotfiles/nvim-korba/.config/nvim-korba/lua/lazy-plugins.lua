@@ -71,7 +71,6 @@ require('lazy').setup({
   install = {
     missing = true,
     colorscheme = { 'nord' },
-    -- colorscheme = { "nvchad" },
   },
   checker = {
     enabled = true,
