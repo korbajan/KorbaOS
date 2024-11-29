@@ -16,9 +16,7 @@ bindsym mod1+F3 exec --no-startup-id xfce4-appfinder
 bindsym $mod+F11 exec --no-startup-id "rofi -font 'JetBrainsMonoNLNerdFont Regular 13' -theme-str 'window {width: 100%;height: 100%;}' -show drun"
 
 # start rofi small
-# bindsym $mod+Shift+Return exec --no-startup-id rofi -theme Arc-Dark -font "SauceCodeProNF Regular 13" -show drun -icon-theme "Sardi Arc" -show-icons
-#bindsym $mod+Shift+Return exec --no-startup-id rofi -font "SauceCodeProNerdFont Regular 13" -show drun -icon-theme "Sardi Arc" -show-icons
-bindsym $mod+Shift+Return exec --no-startup-id rofi -font "JetBrainsMonoNLNerdFont Regular 13" -show drun -icon-theme "Sardi Arc" -show-icons
+bindsym $mod+Shift+Return exec --no-startup-id rofi -font "JetBrainsMonoNLNerdFont Regular 13" -show drun -icon-theme "Nordzy-dark" -show-icons
 
 # rofi-windows
 bindsym $mod+Shift+Tab exec --no-startup-id rofi -show window
