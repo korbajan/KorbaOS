@@ -69,6 +69,17 @@ return {
       window = {
         position = 'float',
         width = 35,
+        mappings = {
+          ['e'] = function()
+            vim.api.nvim_exec('Neotree focus filesystem', true)
+          end,
+          ['b'] = function()
+            vim.api.nvim_exec('Neotree focus buffers', true)
+          end,
+          ['g'] = function()
+            vim.api.nvim_exec('Neotree focus git_status', true)
+          end,
+        },
       },
       filesystem = {
         use_libuv_file_watcher = true,

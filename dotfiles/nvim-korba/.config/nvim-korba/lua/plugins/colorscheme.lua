@@ -24,7 +24,7 @@ return {
       vim.cmd.hi 'Comment gui=none'
       -- vim.cmd.hi 'FloatBorder guibg=#2E3440 guifg=#2E3440'
       -- vim.cmd.hi 'NormalFloat guibg=#2E3440'
-      vim.cmd.hi 'FloatBorder guibg=None guifg=None'
+      vim.cmd.hi 'FloatBorder guibg=None guifg=#68809a'
       vim.cmd.hi 'NormalFloat guibg=None'
     end,
   },
