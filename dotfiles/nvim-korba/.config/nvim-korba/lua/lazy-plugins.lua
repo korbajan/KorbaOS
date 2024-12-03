@@ -50,6 +50,7 @@ require('lazy').setup({
   --  Uncomment any of the lines below to enable them (you will need to restart nvim).
   --
   require 'plugins/debug',
+  require 'plugins/test',
   -- require 'plugins/indent_line',
   -- require 'plugins/lint',
   require 'plugins/autopairs',
