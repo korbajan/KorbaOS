@@ -472,8 +472,8 @@ alias personal='cp -Rf /personal/* ~'
 
 # korba aliases
 #alias gogobig="cd $HOME/Projects/CodiLime/gobig_worktree"
-# alias e="nvim"
-alias e='NVIM_APPNAME="nvim-korba" nvim'
+alias e="nvim"
+#alias e='NVIM_APPNAME="nvim-korba" nvim'
 alias dusort="du -d 1 -h | sort -h --reverse"
 alias dmenu="dmenu -h 30 -nb '#3b4252' -sb '#88c0d0' -nf '#b48ead' -sf '#3b4252' -fn 'SauceCodeProNerdFont:regular:pixelsize=14'"
 alias fcd='cd $(ls -d */ | fzf)'
