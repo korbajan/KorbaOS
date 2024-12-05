@@ -34,8 +34,28 @@ configuration {
   padding: 0;
   spacing: 0;
 
+  nord0: #2e3440;
+  nord1: #3b4252;
+  nord2: #434c5e;
+  nord3: #4c566a;
+
+  nord4: #d8dee9;
+  nord5: #e5e9f0;
+  nord6: #eceff4;
+
+  nord7: #8fbcbb;
+  nord8: #88c0d0;
+  nord9: #81a1c1;
+  nord10: #5e81ac;
+  nord11: #bf616a;
+
+  nord12: #d08770;
+  nord13: #ebcb8b;
+  nord14: #a3be8c;
+  nord15: #b48ead;
+  
   bg: #2E3440;
-  bg-alt: #3B4252;
+  bg-alt: @nord1;
   fg: #81A1C1;
   fg-alt: #EBCB8B;
 
@@ -45,15 +65,28 @@ configuration {
 
 window {
   transparency: "real";
+  border:  0px;
+  border-radius: 6px;
 }
 
 mainbox {
   children: [inputbar, listview];
 }
 
+message {
+    color: @nord0;
+    padding: 5;
+    border-color: @nord11;
+    border:  0px 2px 2px 2px;
+    background-color: @nord7;
+}
+
 inputbar {
   background-color: @bg-alt;
   children: [prompt, entry];
+  border: 1px 1px 0px 1px;
+  border-radius:  6px 6px 0px 0px;
+  border-color: @bg-alt;
 }
 
 entry {
@@ -68,6 +101,9 @@ prompt {
 
 listview {
   lines: 8;
+  border-radius: 0px 0px 6px 6px;
+  border-color: @bg-alt;
+  border: 0px 1px 1px 1px;
 }
 
 element {
