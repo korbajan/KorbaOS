@@ -70,7 +70,7 @@ return {
         position = 'float',
         width = 35,
         mappings = {
-          ['e'] = function()
+          ['f'] = function()
             vim.api.nvim_exec('Neotree focus filesystem', true)
           end,
           ['b'] = function()
