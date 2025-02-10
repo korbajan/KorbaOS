@@ -57,44 +57,44 @@ return {
       --     lsp_format = lsp_format_opt,
       --   }
       -- end,
-      format_on_save = function(bufnr)
-        -- Disable "format_on_save lsp_fallback" for languages that don't
-        -- have a well standardized coding style. You can add additional
-        -- languages here or re-enable it for the disabled ones.
-        local disable_filetypes = { c = true, cpp = true }
-        if disable_filetypes[vim.bo[bufnr].filetype] then
-          return {
-            timeout_ms = 500,
-            lsp_format = 'never',
-          }
-        end
-        -- local ignore_filetypes = { 'lua' }
-        -- if vim.tbl_contains(ignore_filetypes, vim.bo.filetype) then
-        local ignore_filetypes = { lua = true }
-        if ignore_filetypes[vim.bo[bufnr].filetype] then
-          vim.notify('range formatting for ' .. vim.bo.filetype .. ' is not working properly.')
-          require('conform').format { lsp_fallback = true, timeout_ms = 500 }
-          return
-        end
-        if require('gitsigns.cache').cache[bufnr] then
-          local cursor_position = vim.api.nvim_win_get_cursor(0)
-          format_hunks_range()
-          vim.api.nvim_win_set_cursor(0, cursor_position)
-          return
-        end
-        return {
-          timeout_ms = 500,
-          lsp_format = 'fallback',
-        }
-      end,
-      formatters_by_ft = {
-        lua = { 'stylua' },
-        -- Conform can also run multiple formatters sequentially
-        python = { 'isort', 'black' },
-        --
-        -- You can use 'stop_after_first' to run the first available formatter from the list
-        -- javascript = { "prettierd", "prettier", stop_after_first = true },
-      },
+      -- format_on_save = function(bufnr)
+      --   -- Disable "format_on_save lsp_fallback" for languages that don't
+      --   -- have a well standardized coding style. You can add additional
+      --   -- languages here or re-enable it for the disabled ones.
+      --   local disable_filetypes = { c = true, cpp = true }
+      --   if disable_filetypes[vim.bo[bufnr].filetype] then
+      --     return {
+      --       timeout_ms = 500,
+      --       lsp_format = 'never',
+      --     }
+      --   end
+      --   -- local ignore_filetypes = { 'lua' }
+      --   -- if vim.tbl_contains(ignore_filetypes, vim.bo.filetype) then
+      --   local ignore_filetypes = { lua = true }
+      --   if ignore_filetypes[vim.bo[bufnr].filetype] then
+      --     vim.notify('range formatting for ' .. vim.bo.filetype .. ' is not working properly.')
+      --     require('conform').format { lsp_fallback = true, timeout_ms = 500 }
+      --     return
+      --   end
+      --   if require('gitsigns.cache').cache[bufnr] then
+      --     local cursor_position = vim.api.nvim_win_get_cursor(0)
+      --     format_hunks_range()
+      --     vim.api.nvim_win_set_cursor(0, cursor_position)
+      --     return
+      --   end
+      --   return {
+      --     timeout_ms = 500,
+      --     lsp_format = 'fallback',
+      --   }
+      -- end,
+      -- formatters_by_ft = {
+      --   lua = { 'stylua' },
+      --   -- Conform can also run multiple formatters sequentially
+      --   python = { 'isort', 'black' },
+      --   --
+      --   -- You can use 'stop_after_first' to run the first available formatter from the list
+      --   -- javascript = { "prettierd", "prettier", stop_after_first = true },
+      -- },
     },
   },
 }

@@ -128,6 +128,8 @@ export VISUAL='nvim'
 
 #PS1='[\u@\h \W]\$ '
 
+### PATH:::
+
 if [ -d "$HOME/.bin" ] ;
   then PATH="$HOME/.bin:$PATH"
 fi
@@ -148,7 +150,21 @@ if [ -d "${HOME}/.nix-profile/bin" ] ;
   then PATH="${PATH}:${HOME}/.nix-profile/bin"
 fi
 
-### ALIASES ###
+
+if [ -d "${HOME}/.cargo/bin" ] ;
+  then PATH="${PATH}:${HOME}/.cargo/bin"
+fi
+
+if [ -d "${HOME}/.cargo/bin" ] ;
+  then PATH="${PATH}:${HOME}/.cargo/bin"
+fi
+
+
+if [ -e ${HOME}/.nix-profile/etc/profile.d/nix.sh ] ;
+  then . ${HOME}/.nix-profile/etc/profile.d/nix.sh
+fi # added by Nix installer
+
+### ALIASES: ###
 
 #list
 alias ls='ls --color=auto'
@@ -159,7 +175,14 @@ alias l.="ls -A | egrep '^\.'"
 
 #fix obvious typo's
 alias cd..='cd ..'
+alias pdw='pwd'
+alias udpate='sudo pacman -Syyu'
+alias upate='sudo pacman -Syyu'
+alias updte='sudo pacman -Syyu'
+alias updqte='sudo pacman -Syyu'
 alias updateall='sudo paru -Syu'
+alias upqll='paru -Syu --noconfirm'
+alias upal='paru -Syu --noconfirm'
 
 ## Colorize the grep command output for ease of use (good for log files)##
 alias grep='grep --color=auto'
@@ -220,9 +243,21 @@ alias install-grub-efi="sudo grub-install --target=x86_64-efi --efi-directory=/b
 #add new fonts
 alias update-fc='sudo fc-cache -fv'
 
+#copy/paste all content of /etc/skel over to home folder - backup of config created - beware
+#skel alias has been replaced with a script at /usr/local/bin/skel
+
+#backup contents of /etc/skel to hidden backup folder in home/user
+alias bupskel='cp -Rf /etc/skel ~/.skel-backup-$(date +%Y.%m.%d-%H.%M.%S)'
+
+#copy shell configs
+alias cb='cp /etc/skel/.bashrc ~/.bashrc && echo "Copied."'
+alias cz='cp /etc/skel/.zshrc ~/.zshrc && exec zsh'
+alias cf='cp /etc/skel/.config/fish/config.fish ~/.config/fish/config.fish && echo "Copied."'
+
 #switch between bash and zsh
 alias tobash="sudo chsh $USER -s /bin/bash && echo 'Now log out.'"
 alias tozsh="sudo chsh $USER -s /bin/zsh && echo 'Now log out.'"
+alias tofish="sudo chsh $USER -s /bin/fish && echo 'Now log out.'"
 
 #switch between lightdm and sddm
 alias tolightdm="sudo pacman -S lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings --noconfirm --needed ; sudo systemctl enable lightdm.service -f ; echo 'Lightm is active - reboot now'"
@@ -470,64 +505,7 @@ alias personal='cp -Rf /personal/* ~'
 [ -f /usr/share/fzf/key-bindings.zsh ] && source /usr/share/fzf/key-bindings.zsh
 [ -f /usr/share/fzf/completion.zsh ] && source /usr/share/fzf/completion.zsh
 
-# korba aliases
-#alias gogobig="cd $HOME/Projects/CodiLime/gobig_worktree"
-alias e="nvim"
-#alias e='NVIM_APPNAME="nvim-korba" nvim'
-alias dusort="du -d 1 -h | sort -h --reverse"
-alias dmenu="dmenu -h 30 -nb '#3b4252' -sb '#88c0d0' -nf '#b48ead' -sf '#3b4252' -fn 'SauceCodeProNerdFont:regular:pixelsize=14'"
-alias fcd='cd $(ls -d */ | fzf)'
-alias show='exa --long --all --group-directories-first --across --extended --git'
 
-alias start_docker="sudo systemctl start docker"
-alias start_libvirt="sudo systemctl start libvirtd"
-alias downloadtest="speedtest --simple --no-upload --single --bytes"
-alias TODO="nvim $HOME/Projects/TODO.txt"
-#alias start-windows="vboxmanage startvm vmware_win11"
-# alias save-windows="vboxmanage controlvm vmware_win11 savestate"
-# alias stop-windows="vboxmanage controlvm vmware_win11 poweroff"
-# alias start-ubuntu-kube="vboxmanage startvm ubuntu_server --type=headless"
-# alias save-ubuntu-kube="vboxmanage controlvm ubuntu_server savestate"
-# alias stop-ubuntu-kube="vboxmanage controlvm ubuntu_server poweroff"
-# alias start-ubuntu-bpf="vboxmanage startvm ubuntu_bpf --type=headless"
-# alias save-ubuntu-bpf="vboxmanage controlvm ubuntu_bpf savestate"
-# alias stop-ubuntu-bpf="vboxmanage controlvm ubuntu_bpf poweroff"
-# alias start-fedora-bpf="vboxmanage startvm fedora_server --type=headless"
-# alias save-fedora-bpf="vboxmanage controlvm fedora_server savestate"
-# alias stop-feadora-bpf="vboxmanage controlvm fedora_server poweroff"
-
-alias tmux="TERM=xterm-256color tmux"
-
-alias create_venv="python -m venv .venv"
-
-alias kcontext="kubectl config get-contexts | awk '{print \$1}' | fzf"
-# export PIP_INDEX_URL=http://localhost:8222
- 
-#eval "$(ssh-agent -s)"
-# eval "$(ssh-agent -s)" > /dev/null
-# ssh-add ~/.ssh/korba_id_ed25519 > /dev/null
-
-function pyenv_venv_rebuild() {
-  pyenv deactivate
-  venv_name=${PWD:t}
-  pyenv uninstall -f ${venv_name}
-  pyenv virtualenv ${venv_name}
-  pyenv activate ${venv_name}
-  pip install pip-tools
-  pip install black
-  pip install pytest
-  find -regextype posix-extended -regex '.*(requirements|requires)\.txt' | grep -v 'egg-info' | grep -v ansible | xargs -I req pip install -r req
-  pip install --force-reinstall -e .
-}
-# alias flake8="flake8 --exclude *.egg-info"
-
-export PYENV_ROOT="$HOME/.pyenv"
-[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
-eval "$(zoxide init --cmd j zsh)"
-eval $(thefuck --alias wtf)
-eval "$(starship init zsh)"
-# sprawdz_sandaly
-
-if [ -e ${HOME}/.nix-profile/etc/profile.d/nix.sh ]; then . ${HOME}/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+source ${HOME}/.config/zsh/korba.zshrc
+source ${HOME}/.config/zsh/python.zshrc
+source ${HOME}/.config/zsh/work.zshrc
