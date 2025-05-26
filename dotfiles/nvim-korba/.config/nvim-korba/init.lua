@@ -108,6 +108,9 @@ end
 -- [[ Setting options ]]
 require 'options'
 
+-- [[ Setting configurations ]]
+require 'configs'
+
 -- [[ Basic Keymaps ]]
 require 'keymaps'
 
