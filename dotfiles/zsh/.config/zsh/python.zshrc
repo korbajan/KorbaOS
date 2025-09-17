@@ -1,7 +1,5 @@
 ### PYTHON:
 
-export PIP_INDEX_URL=http://localhost:8222
-
 function pyenv_venv_activate() {
   pyenv deactivate 2>/dev/null
   venv_name=${PWD:t}
@@ -16,11 +14,16 @@ function pyenv_venv_rebuild() {
   pyenv virtualenv ${venv_name}
   pyenv activate ${venv_name}
   # find -regextype posix-extended -regex '.*(requirements|requires)\.txt' | grep -v 'egg-info' | grep -v ansible | xargs -I req pip install -r req
-  pip install --force-reinstall -e .
+  # pip install --force-reinstall -e .
+  if [ -f requirements.txt ]; then
+    pip install -r requirements.txt
+  fi
+  pip install .
   if [ -f test-requirements.txt ]; then
     pip install -r test-requirements.txt
   fi
-  pip install pytest pip-tools black python-lsp-server python-lsp-ruff python-lsp-black
+  pip install -e .
+  pip install mypy pytest pip-tools black python-lsp-server python-lsp-ruff python-lsp-black
 }
 
 alias flake8='flake8 --exclude *.egg-info | grep -v "./build" | grep -v "./migrations"'
@@ -30,6 +33,9 @@ alias create_venv="python -m venv .venv"
 export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init --path)"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 

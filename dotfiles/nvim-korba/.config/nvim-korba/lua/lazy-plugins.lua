@@ -63,6 +63,7 @@ require('lazy').setup({
   require 'plugins/noice',
   require 'plugins/dressing',
   require 'plugins/bufdelete',
+  require 'plugins/undotree',
 
   -- For additional information with loading, sourcing and examples see `:help lazy.nvim-🔌-plugin-spec`
   -- Or use telescope!

@@ -56,10 +56,10 @@ autoload -U compinit; compinit
 
 ### SOURCES:
 
-source ~/SystemSetup/sources/cdmkdir
-source ~/.chatgpt/token
+#source ~/SystemSetup/sources/cdmkdir
+#source ~/.chatgpt/token
 [ -f /home/jakub/SystemSetup/sources/tilt_autocompletion.source ] && source /home/jakub/SystemSetup/sources/tilt_autocompletion.source
 
 eval "$(zoxide init --cmd j zsh)"
-eval $(thefuck --alias wtf)
+#eval $(thefuck --alias wtf)
 eval "$(starship init zsh)"

@@ -1,6 +1,8 @@
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
+local opts = { noremap = true, silent = true }
+
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
@@ -35,3 +37,11 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 vim.keymap.set('n', '<leader>te', ':NvimTreeToggle<cr>', { silent = true, noremap = true })
 vim.api.nvim_set_keymap('n', '<leader>e', ':NvimTreeFocus<cr>', { silent = true, noremap = true })
 vim.api.nvim_set_keymap('n', '<leader>er', ':NvimTreeResize 50<cr>', { silent = true, noremap = true })
+
+-- Format with jq the whole buffer
+vim.keymap.set("n", "<Leader>fj", "<Cmd>%!jq<CR>", opts)
+vim.keymap.set("n", "<Leader>fcj", "<Cmd>%!jq --compact-output<CR>", opts)
+
+-- Format with jq visual selection
+vim.keymap.set("v", "<Leader>fj", ":'<,'>!jq<CR>", opts)
+vim.keymap.set("v", "<Leader>fcj", ":'<,'>!jq --compact-output<CR>", opts)
