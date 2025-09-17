@@ -1,9 +1,22 @@
 theme = "nord"
-# theme = "catppuccin_frappe"
+ 
 [editor]
 line-number = "relative"
 cursorline = true
 color-modes = true
+end-of-line-diagnostics = "hint"
+completion-replace = true
+
+[editor.statusline]
+left = ["mode"]
+center = ["position", "file-name", "total-line-numbers", "file-modification-indicator"]
+right = ["spinner", "diagnostics", "selections", "file-type", "file-indent-style", "file-encoding", "file-line-ending"]
+separator = "│"
+mode.normal = "NORMAL"
+mode.insert = "INSERT"
+mode.select = "SELECT"
+diagnostics = ["warning", "error"]
+workspace-diagnostics = ["warning", "error"]
 
 [editor.file-picker]
 hidden = true
@@ -15,3 +28,9 @@ select = "underline"
 
 [editor.indent-guides]
 render = true
+
+[editor.inline-diagnostics]
+cursor-line = "error"
+
+[keys.insert]
+"C-q" = "normal_mode" 
