@@ -505,7 +505,8 @@ alias personal='cp -Rf /personal/* ~'
 [ -f /usr/share/fzf/key-bindings.zsh ] && source /usr/share/fzf/key-bindings.zsh
 [ -f /usr/share/fzf/completion.zsh ] && source /usr/share/fzf/completion.zsh
 
-
+. <( zellij setup --generate-completion zsh | sed -Ee 's/^(_(zellij) ).*/compdef \1\2/' )
 source ${HOME}/.config/zsh/korba.zshrc
 source ${HOME}/.config/zsh/python.zshrc
 source ${HOME}/.config/zsh/work.zshrc
+
