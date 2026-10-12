@@ -70,6 +70,4 @@ vim.opt.cursorline = true
 vim.opt.scrolloff = 5
 
 -- vim.opt.laststatus = 0 -- Always display the status line
-
-vim.opt.undofile = true
 -- vim: ts=2 sts=2 sw=2 et

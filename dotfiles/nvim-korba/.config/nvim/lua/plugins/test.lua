@@ -4,9 +4,10 @@ return {
     dependencies = {
       'nvim-neotest/nvim-nio',
       'nvim-lua/plenary.nvim',
-      'antoinemadec/FixCursorHold.nvim',
       'nvim-treesitter/nvim-treesitter',
       'nvim-neotest/neotest-python',
+      'fredrikaverpil/neotest-golang',
+      'leoluz/nvim-dap-go', -- used by neotest-golang for the <leader>nd* debug runs
     },
     config = function()
       require('neotest').setup {
@@ -14,35 +15,34 @@ return {
           require 'neotest-python' {
             dap = { justMyCode = false },
           },
+          require 'neotest-golang' {},
         },
       }
     end,
     keys = {
-      { '<leader>t', '', desc = '+test' },
-      { '<leader>td', '', desc = '+test+debuger' },
       {
-        '<leader>tdt',
+        '<leader>ndt',
         function()
           require('neotest').run.run { vim.fn.expand '%', strategy = 'dap' }
         end,
         desc = 'Run File (Neotest)',
       },
       {
-        '<leader>tdT',
+        '<leader>ndT',
         function()
           require('neotest').run.run { vim.uv.cwd(), strategy = 'dap' }
         end,
         desc = 'Run All Test Files (Neotest)',
       },
       {
-        '<leader>tdr',
+        '<leader>ndr',
         function()
           require('neotest').run.run { strategy = 'dap' }
         end,
         desc = 'Run Nearest (Neotest)',
       },
       {
-        '<leader>tdl',
+        '<leader>ndl',
         function()
           require('neotest').run.run_last { strategy = 'dap' }
         end,
@@ -50,63 +50,63 @@ return {
       },
 
       {
-        '<leader>tt',
+        '<leader>nt',
         function()
           require('neotest').run.run(vim.fn.expand '%')
         end,
         desc = 'Run File (Neotest)',
       },
       {
-        '<leader>tT',
+        '<leader>nT',
         function()
           require('neotest').run.run(vim.uv.cwd())
         end,
         desc = 'Run All Test Files (Neotest)',
       },
       {
-        '<leader>tr',
+        '<leader>nr',
         function()
           require('neotest').run.run()
         end,
         desc = 'Run Nearest (Neotest)',
       },
       {
-        '<leader>tl',
+        '<leader>nl',
         function()
           require('neotest').run.run_last()
         end,
         desc = 'Run Last (Neotest)',
       },
       {
-        '<leader>ts',
+        '<leader>ns',
         function()
           require('neotest').summary.toggle()
         end,
         desc = 'Toggle Summary (Neotest)',
       },
       {
-        '<leader>to',
+        '<leader>no',
         function()
           require('neotest').output.open { enter = true, auto_close = true }
         end,
         desc = 'Show Output (Neotest)',
       },
       {
-        '<leader>tO',
+        '<leader>nO',
         function()
           require('neotest').output_panel.toggle()
         end,
         desc = 'Toggle Output Panel (Neotest)',
       },
       {
-        '<leader>tS',
+        '<leader>nS',
         function()
           require('neotest').run.stop()
         end,
         desc = 'Stop (Neotest)',
       },
       {
-        '<leader>tw',
+        '<leader>nw',
         function()
           require('neotest').watch.toggle(vim.fn.expand '%')
         end,

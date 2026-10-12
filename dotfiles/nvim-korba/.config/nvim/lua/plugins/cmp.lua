@@ -34,6 +34,7 @@ return {
       --  into multiple repos for maintenance purposes.
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-path',
+      'hrsh7th/cmp-buffer',
 
       -- Adds a number of user-friendly snippets
       'rafamadriz/friendly-snippets',
@@ -46,6 +47,7 @@ return {
       local cmp = require 'cmp'
       local luasnip = require 'luasnip'
       luasnip.config.setup {}
+      require('luasnip.loaders.from_vscode').lazy_load()
 
       cmp.setup {
         sources = {
@@ -56,12 +58,11 @@ return {
           },
           { name = 'nvim_lsp' },
           { name = 'luasnip' },
-          { name = 'nvim_lua' },
           { name = 'buffer' },
           { name = 'path' },
-          { name = 'treesitter' },
-          { name = 'crates' },
-          { name = 'tmux' },
+        },
+        formatting = {
+          format = require('lspkind').cmp_format { mode = 'symbol_text', maxwidth = 50 },
         },
         snippet = {
           expand = function(args)

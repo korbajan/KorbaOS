@@ -55,13 +55,11 @@ require('lazy').setup({
   -- require 'plugins/lint',
   require 'plugins/autopairs',
   require 'plugins/neo-tree',
-  require 'plugins/nvim-tree',
   require 'plugins/colorscheme',
   require 'plugins/mason',
 
   require 'plugins/lazygit',
   require 'plugins/noice',
-  require 'plugins/dressing',
   require 'plugins/bufdelete',
   require 'plugins/undotree',
 
@@ -70,6 +68,9 @@ require('lazy').setup({
   -- In normal mode type `<space>sh` then write `lazy.nvim-plugin`
   -- you can continue same window with `<space>sr` which resumes last telescope search
 }, {
+  rocks = {
+    enabled = false, -- no plugin here needs luarocks
+  },
   install = {
     missing = true,
     colorscheme = { 'nord' },

@@ -33,15 +33,10 @@ vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right win
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
--- Toggle File Tree:
-vim.keymap.set('n', '<leader>te', ':NvimTreeToggle<cr>', { silent = true, noremap = true })
-vim.api.nvim_set_keymap('n', '<leader>e', ':NvimTreeFocus<cr>', { silent = true, noremap = true })
-vim.api.nvim_set_keymap('n', '<leader>er', ':NvimTreeResize 50<cr>', { silent = true, noremap = true })
-
 -- Format with jq the whole buffer
-vim.keymap.set("n", "<Leader>fj", "<Cmd>%!jq<CR>", opts)
-vim.keymap.set("n", "<Leader>fcj", "<Cmd>%!jq --compact-output<CR>", opts)
+vim.keymap.set("n", "<Leader>cj", "<Cmd>%!jq<CR>", vim.tbl_extend("force", opts, { desc = "jq: pretty-print JSON buffer" }))
+vim.keymap.set("n", "<Leader>cJ", "<Cmd>%!jq --compact-output<CR>", vim.tbl_extend("force", opts, { desc = "jq: compact JSON buffer" }))
 
 -- Format with jq visual selection
-vim.keymap.set("v", "<Leader>fj", ":'<,'>!jq<CR>", opts)
-vim.keymap.set("v", "<Leader>fcj", ":'<,'>!jq --compact-output<CR>", opts)
+vim.keymap.set("v", "<Leader>cj", ":'<,'>!jq<CR>", vim.tbl_extend("force", opts, { desc = "jq: pretty-print JSON selection" }))
+vim.keymap.set("v", "<Leader>cJ", ":'<,'>!jq --compact-output<CR>", vim.tbl_extend("force", opts, { desc = "jq: compact JSON selection" }))

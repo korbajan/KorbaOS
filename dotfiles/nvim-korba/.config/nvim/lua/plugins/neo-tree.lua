@@ -22,7 +22,7 @@ return {
   --     },
   --   },
   -- },
-  event = 'VeryLazy',
+  lazy = false, -- needed so `nvim <dir>` opens neo-tree instead of an empty buffer
   keys = {
     { '<leader>e', ':Neotree toggle float<CR>', silent = true, desc = 'Float File Explorer' },
     { '<leader><Tab>', ':Neotree toggle left<CR>', silent = true, desc = 'Left File Explorer' },
@@ -71,13 +71,13 @@ return {
         width = 35,
         mappings = {
           ['f'] = function()
-            vim.api.nvim_exec('Neotree focus filesystem', true)
+            vim.cmd 'Neotree focus filesystem'
           end,
           ['b'] = function()
-            vim.api.nvim_exec('Neotree focus buffers', true)
+            vim.cmd 'Neotree focus buffers'
           end,
           ['g'] = function()
-            vim.api.nvim_exec('Neotree focus git_status', true)
+            vim.cmd 'Neotree focus git_status'
           end,
         },
       },

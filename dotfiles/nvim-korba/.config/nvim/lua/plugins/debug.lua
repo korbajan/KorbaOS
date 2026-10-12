@@ -18,7 +18,7 @@ return {
     'nvim-neotest/nvim-nio',
 
     -- Installs the debug adapters for you
-    'williamboman/mason.nvim',
+    'mason-org/mason.nvim',
     'jay-babu/mason-nvim-dap.nvim',
 
     -- Add your own debuggers here
@@ -58,14 +58,20 @@ return {
 
       -- You can provide additional configuration to the handlers,
       -- see mason-nvim-dap README for more information
-      handlers = {},
+      handlers = {
+        function(config)
+          require('mason-nvim-dap').default_setup(config)
+        end,
+        -- Go is configured by nvim-dap-go below; skip mason's duplicate delve configs
+        delve = function() end,
+      },
 
       -- You'll need to check that you have the required things installed
       -- online, please don't ask me how to install them :)
       ensure_installed = {
         -- Update this to ensure that you have the debuggers for the langs you want
         'delve',
-        'debugpy',
+        -- debugpy comes from pacman (python-debugpy), see dap-python setup below
       },
     }
 
@@ -115,7 +121,28 @@ return {
         detached = vim.fn.has 'win32' == 0,
       },
     }
-    require('dap-python').setup 'python3'
+    -- The debugpy adapter runs on system python (pacman: python-debugpy), independent of mise/pyenv.
+    require('dap-python').setup '/usr/bin/python3'
     require('dap-python').test_runner = 'pytest'
+    -- The debugged program runs on the project's python. dap-python checks $VIRTUAL_ENV and
+    -- $CONDA_PREFIX before calling this; a project .venv still wins over mise/pyenv here.
+    require('dap-python').resolve_python = function()
+      local cwd = vim.fn.getcwd()
+      for _, folder in ipairs { 'venv', '.venv', 'env', '.env' } do
+        local python = cwd .. '/' .. folder .. '/bin/python'
+        if vim.fn.executable(python) == 1 then
+          return python
+        end
+      end
+      for _, cmd in ipairs { { 'mise', 'which', 'python3' }, { 'pyenv', 'which', 'python3' } } do
+        if vim.fn.executable(cmd[1]) == 1 then
+          local out = vim.system(cmd, { cwd = cwd, text = true }):wait()
+          if out.code == 0 and out.stdout ~= '' then
+            return vim.trim(out.stdout)
+          end
+        end
+      end
+      return vim.fn.exepath 'python3'
+    end
   end,
 }

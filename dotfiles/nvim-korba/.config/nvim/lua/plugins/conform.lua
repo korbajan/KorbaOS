@@ -16,7 +16,7 @@ local function format_hunks_range()
     -- nvim_buf_get_lines uses zero-based indexing -> subtract from last
     local last_hunk_line = vim.api.nvim_buf_get_lines(0, last - 2, last - 1, true)[1]
     local range = { start = { start, 0 }, ['end'] = { last - 1, last_hunk_line:len() } }
-    format({ range = range, async = true, lsp_fallback = true }, function()
+    format({ range = range, async = true, lsp_format = 'fallback' }, function()
       vim.defer_fn(function()
         format_hunks_range()
       end, 1)
@@ -41,6 +41,17 @@ return {
     },
     opts = {
       notify_on_error = true,
+      format_on_save = function(bufnr)
+        local disable_filetypes = { c = true, cpp = true }
+        if disable_filetypes[vim.bo[bufnr].filetype] then
+          return { timeout_ms = 500, lsp_format = 'never' }
+        end
+        return { timeout_ms = 1000, lsp_format = 'fallback' }
+      end,
+      formatters_by_ft = {
+        go = { 'goimports', 'gofmt' },
+        lua = { 'stylua' },
+      },
       -- format_on_save = function(bufnr)
       --   -- Disable "format_on_save lsp_fallback" for languages that don't
       --   -- have a well standardized coding style. You can add additional

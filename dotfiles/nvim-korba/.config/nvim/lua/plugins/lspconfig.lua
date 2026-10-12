@@ -18,8 +18,8 @@ return {
     'neovim/nvim-lspconfig',
     dependencies = {
       -- Automatically install LSPs and related tools to stdpath for Neovim
-      { 'williamboman/mason.nvim', config = true }, -- NOTE: Must be loaded before dependants
-      'williamboman/mason-lspconfig.nvim',
+      { 'mason-org/mason.nvim', config = true }, -- NOTE: Must be loaded before dependants
+      'mason-org/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
 
       -- Useful status updates for LSP.
@@ -78,7 +78,7 @@ return {
           map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
 
           -- Find references for the word under your cursor.
-          map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
+          map('grr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
 
           -- Jump to the implementation of the word under your cursor.
           --  Useful when your language has ways of declaring types without an actual implementation.
@@ -115,7 +115,7 @@ return {
           --
           -- When you move your cursor, the highlights will be cleared (the second autocommand).
           local client = vim.lsp.get_client_by_id(event.data.client_id)
-          if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
+          if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
             local highlight_augroup = vim.api.nvim_create_augroup('nvim-lsp-highlight', { clear = false })
             vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
               buffer = event.buf,
@@ -142,7 +142,7 @@ return {
           -- code, if the language server you are using supports them
           --
           -- This may be unwanted, since they displace some of your code
-          if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
+          if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
             map('<leader>th', function()
               vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
             end, '[T]oggle Inlay [H]ints')
@@ -177,7 +177,15 @@ return {
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
         -- clangd = {},
-        gopls = {},
+        gopls = {
+          settings = {
+            gopls = {
+              gofumpt = false,
+              staticcheck = true,
+              usePlaceholders = true,
+            },
+          },
+        },
         pyright = {},
         -- pylsp = {},
         bashls = {},
@@ -213,28 +221,23 @@ return {
       --    :Mason
       --
       --  You can press `g?` for help in this menu.
-      require('mason').setup()
 
       -- You can add other tools here that you want Mason to install
       -- for you, so that they are available from within Neovim.
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
+        'goimports', -- Used to format Go code and fix imports
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
-      require('mason-lspconfig').setup {
-        handlers = {
-          function(server_name)
-            local server = servers[server_name] or {}
-            -- This handles overriding only values explicitly passed
-            -- by the server configuration above. Useful when disabling
-            -- certain features of an LSP (for example, turning off formatting for ts_ls)
-            server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-            require('lspconfig')[server_name].setup(server)
-          end,
-        },
-      }
+      -- Merge our overrides into each server's config; mason-lspconfig v2
+      -- then calls vim.lsp.enable() for installed servers (automatic_enable).
+      for server_name, server in pairs(servers) do
+        server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
+        vim.lsp.config(server_name, server)
+      end
+      require('mason-lspconfig').setup {}
       require('lspconfig.ui.windows').default_options.border = 'single'
     end,
   },

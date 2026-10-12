@@ -20,21 +20,21 @@ autocmd('TextYankPost', {
   end,
 })
 
--- go to last loc when opening a buffer
--- this mean that when you open a file, you will be at the last position
-autocmd('BufReadPost', {
-  callback = function()
-    local mark = api.nvim_buf_get_mark(0, '"')
-    local lcount = api.nvim_buf_line_count(0)
-    if mark[1] > 0 and mark[1] <= lcount then
-      pcall(api.nvim_win_set_cursor, 0, mark)
-    end
-  end,
-})
-
 -- auto close brackets
 -- this
 autocmd('FileType', { pattern = 'man', command = [[nnoremap <buffer><silent> q :quit<CR>]] })
+
+-- Go is always tab-indented (gofmt); show tabs as 4 columns instead of letting sleuth guess
+vim.g.sleuth_go_heuristics = 0
+autocmd('FileType', {
+  pattern = 'go',
+  callback = function()
+    vim.opt_local.expandtab = false
+    vim.opt_local.tabstop = 4
+    vim.opt_local.shiftwidth = 4
+    vim.opt_local.softtabstop = 4
+  end,
+})
 
 autocmd('BufReadPost', {
   pattern = '*',
@@ -53,22 +53,26 @@ autocmd(
   {
     pattern = { '*.txt', '*.md', '*.tex' },
     callback = function()
-      vim.opt.spell = true
-      vim.opt.spelllang = 'en'
+      vim.opt_local.spell = true
+      vim.opt_local.spelllang = 'en'
     end,
   }
 )
 
-autocmd('ColorScheme', {
-  callback = function()
-    vim.api.nvim_set_hl(0, 'FloatBorder', { link = 'Normal' })
-    vim.api.nvim_set_hl(0, 'LspInfoBorder', { link = 'Normal' })
-    vim.api.nvim_set_hl(0, 'NormalFloat', { link = 'Normal' })
+local function set_float_highlights()
+  vim.api.nvim_set_hl(0, 'FloatBorder', { link = 'Normal' })
+  vim.api.nvim_set_hl(0, 'LspInfoBorder', { link = 'Normal' })
+  vim.api.nvim_set_hl(0, 'NormalFloat', { link = 'Normal' })
+  -- LSP hover (Shift+K) is drawn by noice; give it nord1 so it stands out from the editor
+  vim.api.nvim_set_hl(0, 'NoicePopup', { bg = '#3B4252' })
 
-    vim.cmd 'highlight Winbar guibg=none'
+  vim.cmd 'highlight Winbar guibg=none'
 
-    -- vim.cmd("highlight Comment guifg=#475558")
-    -- vim.cmd("highlight Comment guifg=green")
-  end,
-})
+  -- vim.cmd("highlight Comment guifg=#475558")
+  -- vim.cmd("highlight Comment guifg=green")
+end
+
+autocmd('ColorScheme', { callback = set_float_highlights })
+-- the colorscheme is already applied by the time this file loads, so apply once now too
+set_float_highlights()
 -- vim: ts=2 sts=2 sw=2 et
