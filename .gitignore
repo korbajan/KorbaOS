@@ -1,2 +1,4 @@
 **/lazy-lock.json
-./dotfiles/zsh/.config/zsh/work.zshrc
+/dotfiles/zsh/.config/zsh/work.zshrc
+**/.zcompdump*
+.temp/
