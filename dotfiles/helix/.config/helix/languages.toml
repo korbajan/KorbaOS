@@ -1,7 +1,13 @@
 [[language]]
 name = "go"
-auto-format = true
-formatter = { command = "goimports" }
+# pipefail: if goimports fails (e.g. syntax error), helix gets a non-zero exit and keeps the buffer
+formatter = { command = "bash", args = ["-c", "set -o pipefail; goimports | gofumpt"] }
 
-[language-server.gopls.config]
-gofumpt = true
+[language-server.gopls.config.hints]
+assignVariableTypes = true
+parameterNames = true
+
+# ty reads its settings from the "ty" section, hence the double ty.ty
+[language-server.ty.config.ty.inlayHints]
+variableTypes = true
+callArgumentNames = true

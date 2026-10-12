@@ -1,5 +1,5 @@
 theme = "nord"
- 
+
 [editor]
 line-number = "relative"
 cursorline = true
@@ -7,19 +7,20 @@ color-modes = true
 end-of-line-diagnostics = "hint"
 completion-replace = true
 
+[editor.lsp]
+display-inlay-hints = false
+
 [editor.statusline]
 left = ["mode"]
 center = ["position", "file-name", "total-line-numbers", "file-modification-indicator"]
-right = ["spinner", "diagnostics", "selections", "file-type", "file-indent-style", "file-encoding", "file-line-ending"]
+right = ["spinner", "diagnostics", "workspace-diagnostics", "selections", "file-type", "file-indent-style", "file-encoding", "file-line-ending"]
 separator = "│"
 mode.normal = "NORMAL"
 mode.insert = "INSERT"
 mode.select = "SELECT"
-diagnostics = ["warning", "error"]
-workspace-diagnostics = ["warning", "error"]
 
 [editor.file-picker]
-hidden = true
+hidden = false
 
 [editor.cursor-shape]
 insert = "bar"
@@ -32,5 +33,10 @@ render = true
 [editor.inline-diagnostics]
 cursor-line = "error"
 
-[keys.insert]
-"C-q" = "normal_mode" 
+[keys.normal]
+a = ["append_mode", "collapse_selection"]
+i = ["insert_mode", "collapse_selection"]
+
+[keys.normal.space]
+q = ":quit"
+i = ":toggle lsp.display-inlay-hints"
