@@ -1,7 +1,7 @@
 #!/bin/bash
 # Installs the NVIDIA driver branch that supports the GPU actually present.
 # The branch comes from NVIDIA's own supported-GPU list (current vs. legacy sections), not a guess.
-# usage: ./02-nvidia.sh [--dry-run]   (--dry-run detects and prints the plan, installs nothing; otherwise asks for sudo)
+# usage: ./05-nvidia.sh [--dry-run]   (--dry-run detects and prints the plan, installs nothing; otherwise asks for sudo)
 set -euo pipefail
 
 die() { echo "error: $*" >&2; exit 1; }

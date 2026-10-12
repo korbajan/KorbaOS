@@ -1,5 +1,5 @@
 #!/bin/bash
-# Containers and Kubernetes.
+# Containers, Kubernetes and (planned, see virtualization-task.md) virtual machines.
 # Run as a normal user (uses sudo).
 set -euo pipefail
 source "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")/lib.sh"

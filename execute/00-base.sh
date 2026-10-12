@@ -7,9 +7,12 @@ source "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")/lib.sh"
 
 # boot, network, hardware
 pac efibootmgr zram-generator networkmanager linux-headers openssh reflector pacman-contrib pkgfile \
-  bluez bluez-utils bluetui brightnessctl hwinfo hwdetect fuse2 vulkan-intel vulkan-tools
+  bluez bluez-utils bluetui brightnessctl hwinfo hwdetect fuse2
 
 # shell & cli
-pac stow zsh zsh-autosuggestions zsh-history-substring-search zsh-syntax-highlighting fish nushell dash bash-completion \
-  starship thefuck zoxide fzf eza bat ripgrep dust duf btop jq yq bc tree-sitter-cli yazi ueberzugpp zellij tmux \
-  7zip unzip zip dpkg detox rsync wget less man-db expac mise imagemagick yt-dlp speedtest-cli openbsd-netcat
+pac stow zsh zsh-autosuggestions zsh-history-substring-search zsh-syntax-highlighting nushell bash-completion \
+  starship thefuck zoxide fzf eza bat ripgrep dust duf btop jq yq bc yazi ueberzugpp tmux \
+  7zip unzip zip dpkg detox rsync wget less man-db expac speedtest-cli openbsd-netcat
+
+# fonts
+pac noto-fonts otf-font-awesome ttf-dejavu ttf-jetbrains-mono ttf-jetbrains-mono-nerd
