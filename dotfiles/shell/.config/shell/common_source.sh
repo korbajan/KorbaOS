@@ -8,7 +8,7 @@ if [ -d "$HOME/.bin" ] ;
   then PATH="$HOME/.bin:$PATH"
 fi
 if [ -d "$HOME/.local/bin" ] ;
-  then PATH="$HOME/.local/bin:$PATH"
+  then PATH="${HOME}/.local/bin:${PATH}"
 fi
 if [ -d "${GOPATH}/bin" ] ;
   then PATH="${GOPATH}/bin:$PATH"
@@ -23,6 +23,9 @@ if [ -d "${HOME}/.nix-profile/bin" ] ;
 fi
 if [ -d "${HOME}/.cargo/bin" ] ;
   then PATH="${PATH}:${HOME}/.cargo/bin"
+fi
+if [ -d "${HOME}/.local/node_modules/.bin" ] ;
+  then PATH="${PATH}:${HOME}/.local/node_modules/.bin"
 fi
 
 # ALIASES:
@@ -40,7 +43,8 @@ alias fc-update='sudo fc-cache -fv'
 ## pacman bits:
 alias pacman="sudo pacman --color auto"
 alias update="sudo pacman -Syu"
-alias updateall='sudo paru -Syu'
+alias updateall='paru -Syu --noconfirm'
+alias upall='paru -Syu --noconfirm'
 alias pamac-unlock="sudo rm /var/lib/pacman/db.lck"
 ###Cleanup orphaned packages
 alias pacman-cleanup-orphaned='sudo pacman -Rns $(pacman -Qtdq)'
@@ -77,6 +81,14 @@ alias gpg-retrieve="gpg2 --keyserver-options auto-key-retrieve --receive-keys"
 alias fix-gpg-retrieve="gpg2 --keyserver-options auto-key-retrieve --receive-keys"
 alias fix-keyserver="[ -d ~/.gnupg ] || mkdir ~/.gnupg ; cp /etc/pacman.d/gnupg/gpg.conf ~/.gnupg/ ; echo 'done'"
 
+##systeminfo
+alias probe="sudo -E hw-probe -all -upload"
+alias sys-failed="systemctl list-units --failed"
+alias sys-enabled="systemctl list-unit-files --state=enabled"
+
+alias fcd='cd $(ls -d */ | fzf)'
+alias dusort="du -d 1 -h | sort -h --reverse"
+
 ##fixes
 alias fix-permissions="sudo chown -R $USER:$USER ~/.config ~/.local"
 if [ -d $HOME/.local/fixes-lib ]; then
@@ -90,16 +102,11 @@ if [ -d $HOME/.local/fixes-lib ]; then
   alias fix-pacman-conf="/usr/local/bin/arcolinux-fix-pacman-conf"
   alias fix-pacman-keyserver="/usr/local/bin/arcolinux-fix-pacman-gpg-conf"
 fi
-##systeminfo
-alias probe="sudo -E hw-probe -all -upload"
-alias sys-failed="systemctl list-units --failed"
-alias sys-enabled="systemctl list-unit-files --state=enabled"
 
-if command -v zoxide &> /dev/null; then
-  alias j='zoxide'
-fi
 if command -v eza &> /dev/null; then
   alias ls='eza -1'
+  alias tree='eza --tree'
+  alias show='eza --long --all --group-directories-first --across --extended --git'
   alias le='hx $(eza -1 --group-directories-first --recurse --all --absolute --only-files | fzf --exact --multi --ghost="file name")'
 fi
 if command -v helix &> /dev/null; then
@@ -108,10 +115,6 @@ fi
 if command -v nvim >/dev/null 2>&1; then
   alias e="nvim"
 fi
-
-alias fcd='cd $(ls -d */ | fzf)'
-
-alias dusort="du -d 1 -h | sort -h --reverse"
 
 if command -v dmenu >/dev/null 2>&1; then
   alias dmenu="dmenu -h 30 -nb '#3b4252' -sb '#88c0d0' -nf '#b48ead' -sf '#3b4252' -fn 'SauceCodeProNerdFont:regular:pixelsize=14'"
@@ -133,10 +136,10 @@ fi
 if command -v tmux >/dev/null 2>&1; then
   alias tmux="TERM=xterm-256color tmux"
 fi
-alias show='exa --long --all --group-directories-first --across --extended --git'
 
-alias hx="helix"
 alias kcontext="kubectl config get-contexts | awk '{print \$1}' | fzf"
+
+alias private="firefox --private-window"
 
 if [ -d "${HOME}/.garden/bin" ] ;
   then alias garden=~/.garden/bin/garden
@@ -184,6 +187,9 @@ if command -v kind >/dev/null 2>&1; then
   }
 fi
 
+source ${HOME}/.config/shell/aliases.sh
+
 # dev:
 . ${HOME}/.config/zsh/python.zshrc
 [[ -s "${HOME}/.gvm/scripts/gvm" ]] && source "${HOME}/.gvm/scripts/gvm"
+export GOPATH="${HOME}/.local/share/go" # well, because gvm...
