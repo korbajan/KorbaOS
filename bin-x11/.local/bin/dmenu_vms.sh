@@ -1,12 +1,12 @@
-#!/bin/bash -i
-shopt -s expand_aliases extglob xpg_echo
+#!/bin/bash
+# Start a libvirt VM (qemu:///system) from dmenu and open its display.
+export LIBVIRT_DEFAULT_URI=qemu:///system
 
-vboxes=$( vboxmanage list vms | awk '{print $1}' | cut -d " " -f 1 )
-vm=$(echo -e "${vboxes[@]}" | dmenu -l 30 -p 'RUN VM:')
+vm=$(virsh list --all --name | sed '/^$/d' | dmenu -l 30 -p 'RUN VM:')
 
 if [[ ${vm} == "" ]]
 then
   exit
 fi
-vboxmanage startvm ${vm} 
-
+[[ $(virsh domstate "${vm}") == "running" ]] || virsh start "${vm}"
+virt-viewer --attach "${vm}" &

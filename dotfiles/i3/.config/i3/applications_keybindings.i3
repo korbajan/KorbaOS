@@ -74,7 +74,7 @@ bindsym control+mod1+i exec --no-startup-id nitrogen;focus
 bindsym $mod+F6 exec --no-startup-id vlc;focus
 
 # virtual machine
-bindsym $mod+F7 exec --no-startup-id virtualbox;focus
+bindsym $mod+F7 exec --no-startup-id virt-manager;focus
 
 # file management
 bindsym $mod+F8 exec --no-startup-id thunar;focus
@@ -92,7 +92,8 @@ bindsym control+mod1+s exec --no-startup-id spotify;focus
 
 # VM windows
 
-bindsym $mod+Shift+w exec --no-startup-id vboxmanage startvm vmware_win11 
+# VirtualBox-era binding; no Windows guest under libvirt yet
+# bindsym $mod+Shift+w exec --no-startup-id vboxmanage startvm vmware_win11
 
 ################# screenshots                      
 
