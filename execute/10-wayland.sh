@@ -1,6 +1,7 @@
 #!/bin/bash
 # Wayland basics shared by any compositor: bar, launchers, notifications, screenshots, portals, Qt/GTK theming.
-# Run as a normal user (uses sudo).
+# Can be run as root (arch-chroot) or as a normal user (first boot, uses sudo).
+# Root: installs official-repo packages only. User: also installs AUR package (wlogout).
 set -euo pipefail
 source "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")/lib.sh"
 

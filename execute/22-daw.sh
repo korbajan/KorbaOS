@@ -1,6 +1,7 @@
 #!/bin/bash
 # Music production: DAW, plugins, guitar tools. Needs 04-audio.sh.
-# Run as a normal user (uses sudo).
+# Can be run as root (arch-chroot) or as a normal user (first boot, uses sudo).
+# Root: installs official-repo packages only. User: also installs AUR packages (tuxguitar, guitarix.vst, neural-amp-modeler-ui-lv2, neuralrack, ratatouille).
 set -euo pipefail
 source "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")/lib.sh"
 

@@ -1,7 +1,9 @@
 #!/bin/bash
 # Official-repo base on top of the archinstall base:
 #   pacman -S base base-devel linux-firmware linux intel-ucode   (not listed here)
-# Run as a normal user (uses sudo). Next: 01-chaotic-aur.sh (sets up Chaotic AUR and paru).
+# Can be run as root (arch-chroot) or as a normal user (first boot, uses sudo).
+# All packages are from official repos, so this script is fully usable as root.
+# Next: 01-chaotic-aur.sh (sets up Chaotic AUR and paru).
 set -euo pipefail
 source "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")/lib.sh"
 

@@ -1,6 +1,7 @@
 #!/bin/bash
 # Everyday GUI apps. (CLI helpers are in 21-utils.sh.)
-# Run as a normal user (uses sudo).
+# Can be run as root (arch-chroot) or as a normal user (first boot, uses sudo).
+# Root: installs official-repo packages only. User: also installs AUR package (zen-browser-bin).
 set -euo pipefail
 source "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")/lib.sh"
 
