@@ -1,0 +1,24 @@
+# ~/.inputrc – readline settings. In bash these are the fallback when ble.sh
+# is not installed; also used by other readline programs (python, psql, ...).
+$include /etc/inputrc
+
+# No bell
+set bell-style none
+
+# Completion: zsh-like menu, cycle with TAB / Shift-TAB
+set show-all-if-ambiguous on
+set menu-complete-display-prefix on
+set colored-stats on
+set colored-completion-prefix on
+set mark-symlinked-directories on
+TAB: menu-complete
+"\e[Z": menu-complete-backward
+
+# Up/Down: prefix history search
+"\e[A": history-search-backward
+"\e[B": history-search-forward
+
+# Home / End / Delete
+"\e[H": beginning-of-line
+"\e[F": end-of-line
+"\e[3~": delete-char
