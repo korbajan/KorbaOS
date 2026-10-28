@@ -40,3 +40,4 @@ i = ["insert_mode", "collapse_selection"]
 [keys.normal.space]
 q = ":quit"
 i = ":toggle lsp.display-inlay-hints"
+"=" = ":format" # like = but runs the language formatter (ruff for python)

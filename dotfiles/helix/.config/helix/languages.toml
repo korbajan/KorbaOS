@@ -7,8 +7,7 @@ formatter = { command = "bash", args = ["-c", "set -o pipefail; goimports | gofu
 name = "python"
 # ty: types/navigation/inlay hints, ruff: lint/format/imports (pylsp and jedi only duplicate them)
 language-servers = ["ty", "ruff"]
-auto-format = true
-# sort imports then format, like conform's ruff_organize_imports + ruff_format in nvim
+# :format sorts imports then formats (no format on save), like <leader>cf in nvim
 formatter = { command = "bash", args = ["-c", "set -o pipefail; ruff check --select I --fix --exit-zero --quiet --stdin-filename \"$0\" - | ruff format --quiet --stdin-filename \"$0\" -", "%{buffer_name}"] }
 
 [language-server.gopls.config.hints]
