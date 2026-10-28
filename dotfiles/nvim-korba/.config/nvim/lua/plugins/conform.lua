@@ -51,6 +51,7 @@ return {
       formatters_by_ft = {
         go = { 'goimports', 'gofmt' },
         lua = { 'stylua' },
+        python = { 'ruff_organize_imports', 'ruff_format' },
       },
       -- format_on_save = function(bufnr)
       --   -- Disable "format_on_save lsp_fallback" for languages that don't

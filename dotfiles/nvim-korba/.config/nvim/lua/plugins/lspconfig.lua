@@ -186,7 +186,14 @@ return {
             },
           },
         },
-        pyright = {},
+        -- Python: ty for types/navigation/inlay hints, ruff for lint/format/imports
+        ty = {},
+        ruff = {
+          on_attach = function(client)
+            -- ty provides hover; avoid two popups
+            client.server_capabilities.hoverProvider = false
+          end,
+        },
         -- pylsp = {},
         bashls = {},
         -- rust_analyzer = {},
@@ -224,7 +231,11 @@ return {
 
       -- You can add other tools here that you want Mason to install
       -- for you, so that they are available from within Neovim.
-      local ensure_installed = vim.tbl_keys(servers or {})
+      -- Installed by pacman (execute/23-dev.sh), so Mason must not install them
+      local system_servers = { 'ty', 'ruff' }
+      local ensure_installed = vim.tbl_filter(function(name)
+        return not vim.tbl_contains(system_servers, name)
+      end, vim.tbl_keys(servers or {}))
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
         'goimports', -- Used to format Go code and fix imports
@@ -238,6 +249,7 @@ return {
         vim.lsp.config(server_name, server)
       end
       require('mason-lspconfig').setup {}
+      vim.lsp.enable(system_servers)
       require('lspconfig.ui.windows').default_options.border = 'single'
     end,
   },

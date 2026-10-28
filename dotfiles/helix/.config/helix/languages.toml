@@ -3,6 +3,14 @@ name = "go"
 # pipefail: if goimports fails (e.g. syntax error), helix gets a non-zero exit and keeps the buffer
 formatter = { command = "bash", args = ["-c", "set -o pipefail; goimports | gofumpt"] }
 
+[[language]]
+name = "python"
+# ty: types/navigation/inlay hints, ruff: lint/format/imports (pylsp and jedi only duplicate them)
+language-servers = ["ty", "ruff"]
+auto-format = true
+# sort imports then format, like conform's ruff_organize_imports + ruff_format in nvim
+formatter = { command = "bash", args = ["-c", "set -o pipefail; ruff check --select I --fix --exit-zero --quiet --stdin-filename \"$0\" - | ruff format --quiet --stdin-filename \"$0\" -", "%{buffer_name}"] }
+
 [language-server.gopls.config.hints]
 assignVariableTypes = true
 parameterNames = true

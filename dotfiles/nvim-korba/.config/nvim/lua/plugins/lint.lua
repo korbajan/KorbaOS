@@ -22,7 +22,6 @@ return {
       lint.linters_by_ft = {
         markdown = { 'markdownlint' },
         -- python = { 'pylint' },
-        python = { 'flake8' },
       }
 
       -- To allow other plugins to add linters to require('lint').linters_by_ft,
